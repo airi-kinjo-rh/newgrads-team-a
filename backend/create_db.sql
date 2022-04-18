@@ -1,4 +1,6 @@
-CREATE TABLE jira_table (
+CREATE DATABASE IF NOT EXISTS jira_db;
+USE jira_db;
+CREATE TABLE IF NOT EXISTS jira_table (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT primary key,
     `date` DATE NOT NULL,
     `data_type` VARCHAR(50) NOT NULL,
