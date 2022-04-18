@@ -2,7 +2,7 @@ import express from 'express';
 import mysql from 'mysql2';
 
 const app : express.Express = express();
-const port : number = 3000;
+const port : number = 3001;
 
 /*
 app.get('/', (req, res) => {
@@ -16,8 +16,9 @@ app.listen(port, () => {
 });
 
 const connection = mysql.createConnection({
-    host: 'localhost',
+    host: 'mysql-server',
     user: 'root',
+    password: 'password',
     database: 'jira_db'
   });
 
