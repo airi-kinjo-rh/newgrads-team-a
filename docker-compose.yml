@@ -1,0 +1,60 @@
+version: "3"
+
+services:
+  node:
+    build: ./backend
+    container_name: node-server-container
+    hostname: node-server
+    tty: true
+    environment:
+      - NODE_ENV=DEVELOPMENT
+      - PORT=3001
+    volumes:
+      - ./backend:/usr/src/app
+      - node-data:/usr/src/app/node_modules
+    ports:
+      - 3001:3001
+    working_dir: /usr/src/app
+    command: sh -c "npm i -g nodemon && nodemon app.ts"
+
+  react:
+    build: ./frontend
+    container_name: react-server-container
+    hostname: react-server
+    tty: true
+    environment:
+      - NODE_ENV=DEVELOPMENT
+      - PORT=3000
+    volumes:
+      - ./frontend/app:/usr/src/app
+      - react-data:/usr/src/app/node_modules
+    ports:
+      - 3000:3000
+    working_dir: /usr/src/app
+    command: sh -c "npm install && npm start"
+
+  mysql-db:
+    build: ./db
+    container_name: mysql-server-container
+    hostname: mysql-server
+    platform: linux/x86_64
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./db/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: jira_db
+      TZ: Japan
+    ports:
+      - 3306:3306
+    restart: always
+
+volumes:
+  mysql-data:
+    name: db-data
+  node-data:
+    name: node-data
+  react-data:
+    name: react-data
