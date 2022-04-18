@@ -1,5 +1,5 @@
 CREATE TABLE jira_table (
-    `id` INT NOT NULL AUTO_INCREMENT UNSIGNED,
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT primary key,
     `date` DATE NOT NULL,
     `total` INT UNSIGNED,
     `backlog` INT UNSIGNED,
