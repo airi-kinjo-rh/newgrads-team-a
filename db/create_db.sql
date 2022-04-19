@@ -1,11 +1,26 @@
 CREATE DATABASE IF NOT EXISTS jira_db;
 USE jira_db;
-CREATE TABLE IF NOT EXISTS jira_table (
+
+CREATE TABLE IF NOT EXISTS releases (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT primary key,
-    `date` DATE NOT NULL,
-    `data_type` VARCHAR(50) NOT NULL,
-    `value` FLOAT NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
+    `start_date` DATE,
+    `end_date` DATE,
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `deleted_at` DATETIME
 );
+
+CREATE TABLE IF NOT EXISTS counts (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT primary key,
+    `date` DATE NOT NULL,
+    `type` VARCHAR(50) NOT NULL,
+    `value` FLOAT NOT NULL,
+    `release_id` INT UNSIGNED,
+    FOREIGN KEY (`release_id`) REFERENCES releases(`id`) ON DELETE CASCADE,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `deleted_at` DATETIME
+);
+
+
