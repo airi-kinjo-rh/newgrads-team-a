@@ -4,13 +4,6 @@ import mysql from 'mysql2';
 const app : express.Express = express();
 const port : number = 3001;
 
-/*
-app.get('/', (req, res) => {
-    getMonthData();
-    res.send('Hello!')
-})
-*/
-
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 });
@@ -23,9 +16,7 @@ const connection = mysql.createConnection({
   });
 
 const getMonthData = (req : express.Request, res : express.Response) => {
-    new Date("2022-01-27").toLocaleString();
     connection.query(
-        // `SELECT * FROM jira_table WHERE date = ${req.query['target_date']}`,
         `SELECT * FROM jira_table WHERE date >= '${req.query['target_month']}-01' AND date <= '${req.query['target_month']}-31'`,
         function(err, results, fields) {
           console.log(results); // results contains rows returned by server
