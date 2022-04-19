@@ -14,24 +14,26 @@ function App() {
 
   // デフォルトにアクセスした時にリリースデータ取ってくる
   useEffect(() => {
-    fetch("https://localhost:3001/getReleases", { method: "GET" })
+    fetch("http://localhost:3001/getReleases", { method: "GET" })
       .then((res) => res.json())
       .then((data) => {
         setReleaseData(data);
       });
   }, []);
 
+  console.log(releaseData);
+
   // releaseDataで取ってきたidによって各カウントを取得する
-  useEffect(() => {
-    fetch(
-      `https://localhost:3001/getCountsByReleaseId?release_id=${releaseData[0].id}`,
-      { method: "GET" }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCountsData(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch(
+  //     `https://localhost:3001/getCountsByReleaseId?release_id=${releaseData[0].id}`,
+  //     { method: "GET" }
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setCountsData(data);
+  //     });
+  // }, []);
 
   return (
     <>
