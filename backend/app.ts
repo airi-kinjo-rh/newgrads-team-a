@@ -26,4 +26,20 @@ const getMonthData = (req : express.Request, res : express.Response) => {
       );  
 }
 
+const getReleases = (req : express.Request, res : express.Response) => {
+  connection.query(
+      `SELECT id, name, start_date, end_date FROM releases WHERE deleted_at IS NULL`,
+      function(err, results, fields) {
+        console.log(results); // results contains rows returned by server
+        console.log(fields); // fields contains extra meta data about results, if available
+        res.json(results);
+      }
+    );  
+}
+
+
+
+
 app.get('/', getMonthData);
+app.get('/getReleases', getReleases);
+// app.get('/getCountsByReleaseId?release_id=${id}', getCountsByReleaseId);
